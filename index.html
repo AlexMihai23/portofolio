@@ -267,7 +267,7 @@ footer p{font-family:var(--font-mono);font-size:12px;color:var(--text3);letter-s
   <button class="btn btn-primary" onclick="openNewProject()">+ NEW PROJECT</button>
   <button class="btn btn-secondary" onclick="exportData()">↓ EXPORT DATA</button>
   <button class="btn btn-secondary" onclick="importData()">↑ IMPORT DATA</button>
-  <button class="btn btn-secondary" onclick="openChangePassword()">🔑 PASSWORD</button>
+  <button class="btn btn-secondary" onclick="openChangePassword()">PASSWORD</button>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -353,17 +353,18 @@ footer p{font-family:var(--font-mono);font-size:12px;color:var(--text3);letter-s
     <label>TYPE</label>
     <select id="media-type" onchange="toggleMediaFields()">
       <option value="image">Image</option>
-      <option value="video">Video (embed URL)</option>
       <option value="gif">GIF</option>
+      <option value="video_file">Video (from computer)</option>
+      <option value="video_url">Video (YouTube / embed URL)</option>
       <option value="note">Note / Dev Log</option>
     </select>
     <div id="media-file-section">
       <label>FILE</label>
-      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+      <div class="drop-zone" id="drop-zone" onclick="triggerFileInput()">
         <div class="icon">📎</div>
         <p>DROP FILE OR CLICK TO BROWSE</p>
       </div>
-      <input type="file" id="file-input" accept="image/*,video/*,.gif" style="display:none" onchange="handleFileSelect(event)">
+      <input type="file" id="file-input" style="display:none" onchange="handleFileSelect(event)">
       <div class="file-preview" id="file-preview"></div>
     </div>
     <div id="media-url-section" style="display:none">
@@ -539,7 +540,7 @@ function activateAdmin() {
 
 function updateAdminBtn() {
   const btn = document.getElementById('admin-btn');
-  btn.textContent = adminMode ? 'LOGOUT' : 'ADMIN';
+  btn.textContent = adminMode ? '⚡ LOGOUT' : '⚡ ADMIN';
   btn.classList.toggle('authenticated', adminMode);
 }
 
@@ -624,7 +625,8 @@ function renderProjectMedia(proj) {
   notesContainer.innerHTML = '';
   const media = proj.media || [];
   const images = media.filter(m => m.type === 'image' || m.type === 'gif');
-  const videos = media.filter(m => m.type === 'video');
+  const localVideos = media.filter(m => m.type === 'video_local');
+  const embedVideos = media.filter(m => m.type === 'video');
   const notes = media.filter(m => m.type === 'note');
 
   if (images.length > 0) {
@@ -634,12 +636,22 @@ function renderProjectMedia(proj) {
         <button class="delete-media" onclick="event.stopPropagation();deleteMedia('${proj.id}',${media.indexOf(m)})">&times;</button>
       </div>`).join('')}</div></div>`;
   }
-  if (videos.length > 0) {
-    container.innerHTML += `<div class="media-section"><h2>🎬 Videos</h2><div class="media-grid">
-      ${videos.map(m => `<div class="media-item">
+  if (localVideos.length > 0 || embedVideos.length > 0) {
+    let videoHtml = '<div class="media-section"><h2>🎬 Videos</h2><div class="media-grid">';
+    localVideos.forEach(m => {
+      videoHtml += `<div class="media-item" onclick="openLightbox('${(m.data||'').replace(/'/g,"\\'")}','video')">
+        <video src="${m.data}" style="width:100%;aspect-ratio:16/10;object-fit:cover" muted preload="metadata"></video>
+        <button class="delete-media" onclick="event.stopPropagation();deleteMedia('${proj.id}',${media.indexOf(m)})">&times;</button>
+      </div>`;
+    });
+    embedVideos.forEach(m => {
+      videoHtml += `<div class="media-item">
         <iframe src="${escHtml(m.url)}" style="width:100%;aspect-ratio:16/10;border:none" allowfullscreen></iframe>
         <button class="delete-media" onclick="event.stopPropagation();deleteMedia('${proj.id}',${media.indexOf(m)})">&times;</button>
-      </div>`).join('')}</div></div>`;
+      </div>`;
+    });
+    videoHtml += '</div></div>';
+    container.innerHTML += videoHtml;
   }
   if (notes.length > 0) {
     notesContainer.innerHTML = `<h2 style="font-family:var(--font-display);font-size:18px;letter-spacing:2px;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)">📝 Dev Notes</h2>`;
@@ -739,22 +751,53 @@ function openAddMedia() {
 
 function toggleMediaFields() {
   const t = document.getElementById('media-type').value;
-  document.getElementById('media-file-section').style.display = (t==='image'||t==='gif') ? '' : 'none';
-  document.getElementById('media-url-section').style.display = t==='video' ? '' : 'none';
-  document.getElementById('media-note-section').style.display = t==='note' ? '' : 'none';
+  const fileSection = document.getElementById('media-file-section');
+  const urlSection = document.getElementById('media-url-section');
+  const noteSection = document.getElementById('media-note-section');
+  const fileInput = document.getElementById('file-input');
+
+  fileSection.style.display = (t==='image'||t==='gif'||t==='video_file') ? '' : 'none';
+  urlSection.style.display = t==='video_url' ? '' : 'none';
+  noteSection.style.display = t==='note' ? '' : 'none';
+
+  // Set correct accept attribute per type
+  if (t==='image') fileInput.accept = 'image/png,image/jpeg,image/webp,image/bmp';
+  else if (t==='gif') fileInput.accept = 'image/gif,.gif';
+  else if (t==='video_file') fileInput.accept = 'video/mp4,video/webm,video/ogg,.mp4,.webm,.mov,.avi';
+
+  // Reset file input and pending files when switching type
+  fileInput.value = '';
+  document.getElementById('file-preview').innerHTML = '';
+  pendingFiles = [];
+}
+
+function triggerFileInput() {
+  const fi = document.getElementById('file-input');
+  fi.value = '';
+  fi.click();
 }
 
 function handleFileSelect(e) { processFiles(Array.from(e.target.files)); }
 
 function processFiles(files) {
   const preview = document.getElementById('file-preview');
+  const mediaType = document.getElementById('media-type').value;
   files.forEach(file => {
     const reader = new FileReader();
     reader.onload = e => {
       pendingFiles.push({ name: file.name, data: e.target.result, type: file.type });
-      const img = document.createElement('img');
-      img.src = e.target.result; img.className = 'thumb';
-      preview.appendChild(img);
+      if (mediaType === 'video_file') {
+        const vid = document.createElement('video');
+        vid.src = e.target.result;
+        vid.className = 'thumb';
+        vid.style.objectFit = 'cover';
+        vid.muted = true;
+        preview.appendChild(vid);
+      } else {
+        const img = document.createElement('img');
+        img.src = e.target.result; img.className = 'thumb';
+        preview.appendChild(img);
+      }
     };
     reader.readAsDataURL(file);
   });
@@ -776,7 +819,10 @@ function saveMedia() {
   if (type === 'image' || type === 'gif') {
     if (!pendingFiles.length) { toast('Select a file!'); return; }
     pendingFiles.forEach(f => proj.media.push({ type, data: f.data, caption, date: new Date().toLocaleDateString() }));
-  } else if (type === 'video') {
+  } else if (type === 'video_file') {
+    if (!pendingFiles.length) { toast('Select a video file!'); return; }
+    pendingFiles.forEach(f => proj.media.push({ type:'video_local', data: f.data, caption, date: new Date().toLocaleDateString() }));
+  } else if (type === 'video_url') {
     const url = document.getElementById('media-url').value.trim();
     if (!url) { toast('Enter URL!'); return; }
     proj.media.push({ type:'video', url, caption, date: new Date().toLocaleDateString() });
@@ -823,10 +869,21 @@ function doImport() {
 
 // ============ LIGHTBOX ============
 function openLightbox(src, type) {
-  document.getElementById('lightbox-content').innerHTML = type==='image' ? `<img src="${src}">` : '';
+  const content = document.getElementById('lightbox-content');
+  if (type==='video') {
+    content.innerHTML = `<video src="${src}" controls autoplay style="max-width:90vw;max-height:90vh;border-radius:4px"></video>`;
+  } else {
+    content.innerHTML = `<img src="${src}">`;
+  }
   document.getElementById('lightbox').classList.add('active');
 }
-function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  lb.classList.remove('active');
+  // Stop video playback when closing
+  const vid = lb.querySelector('video');
+  if (vid) vid.pause();
+}
 
 // ============ UTILS ============
 function openModal(id) { document.getElementById(id).classList.add('active'); }
