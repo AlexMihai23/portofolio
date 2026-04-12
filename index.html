@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>panti's portofolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--bg4:#22222f;
+  --accent:#00e5ff;--accent2:#7c4dff;--accent3:#ff3d71;
+  --text:#e0e0e8;--text2:#8888a0;--text3:#555568;
+  --border:#2a2a3a;--glow:0 0 20px rgba(0,229,255,.15);
+  --font-display:'Orbitron',sans-serif;
+  --font-body:'Rajdhani',sans-serif;
+  --font-mono:'Share Tech Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6;overflow-x:hidden;min-height:100vh}f
+body::before{content:'';position:fixed;inset:0;background:
+  repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,229,255,.015) 2px,rgba(0,229,255,.015) 4px),
+  radial-gradient(ellipse at 20% 50%,rgba(124,77,255,.06),transparent 60%),
+  radial-gradient(ellipse at 80% 20%,rgba(0,229,255,.04),transparent 60%);
+  pointer-events:none;z-index:0}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px}
+
+/* NOISE OVERLAY */
+.noise{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px 128px}
+
+/* LAYOUT */
+.container{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);background:rgba(10,10,15,.8);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:var(--font-display);font-size:18px;font-weight:900;letter-spacing:3px;color:var(--accent);text-shadow:0 0 30px rgba(0,229,255,.3)}
+.logo span{color:var(--accent2)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-family:var(--font-mono);font-size:13px;letter-spacing:1px;transition:.3s;position:relative}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:.3s}
+.nav-links a:hover::after{width:100%}
+.btn-admin{background:transparent;border:1px solid var(--accent2);color:var(--accent2);padding:6px 16px;font-family:var(--font-mono);font-size:12px;letter-spacing:1px;cursor:pointer;transition:.3s;border-radius:2px}
+.btn-admin:hover{background:var(--accent2);color:var(--bg)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;padding-top:60px}
+.hero-content{position:relative;z-index:2}
+.hero h1{font-family:var(--font-display);font-size:clamp(36px,7vw,72px);font-weight:900;letter-spacing:6px;line-height:1.1;margin-bottom:16px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;
+  animation:gradient 4s ease infinite}
+@keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero .subtitle{font-family:var(--font-mono);color:var(--text2);font-size:clamp(14px,2vw,18px);letter-spacing:4px;margin-bottom:32px}
+.hero .tagline{font-family:var(--font-body);color:var(--text3);font-size:16px;max-width:500px;margin:0 auto 40px}
+.hero-grid{position:absolute;inset:0;overflow:hidden;z-index:0;opacity:.15}
+.hero-grid::before{content:'';position:absolute;inset:-50%;
+  background:repeating-linear-gradient(90deg,var(--accent) 0,var(--accent) 1px,transparent 1px,transparent 80px),
+  repeating-linear-gradient(0deg,var(--accent) 0,var(--accent) 1px,transparent 1px,transparent 80px);
+  transform:perspective(500px) rotateX(60deg);transform-origin:center top}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+.scroll-hint svg{width:24px;height:24px;stroke:var(--text3)}
+
+/* SECTION */
+section{padding:100px 0;position:relative;z-index:1}
+.section-header{margin-bottom:60px;text-align:center}
+.section-label{font-family:var(--font-mono);color:var(--accent2);font-size:12px;letter-spacing:4px;text-transform:uppercase;margin-bottom:8px}
+.section-title{font-family:var(--font-display);font-size:clamp(24px,4vw,40px);font-weight:700;letter-spacing:3px}
+
+/* PROJECT CARDS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+.project-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;transition:.4s;position:relative}
+.project-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--glow)}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transition:.4s;transform-origin:left}
+.project-card:hover::before{transform:scaleX(1)}
+.card-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--bg3);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.card-thumb img{width:100%;height:100%;object-fit:cover}
+.card-thumb .placeholder{font-family:var(--font-display);color:var(--text3);font-size:14px;letter-spacing:2px;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.card-body{padding:20px}
+.card-body h3{font-family:var(--font-display);font-size:16px;letter-spacing:2px;margin-bottom:6px}
+.card-body p{color:var(--text2);font-size:14px;line-height:1.5}
+.card-tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tag{font-family:var(--font-mono);font-size:11px;padding:3px 10px;border:1px solid var(--border);border-radius:2px;color:var(--text3);letter-spacing:1px}
+
+/* PROJECT DETAIL VIEW */
+.project-detail{display:none;padding-top:80px}
+.project-detail.active{display:block}
+.detail-header{margin-bottom:40px}
+.detail-header .back-btn{font-family:var(--font-mono);color:var(--accent);background:none;border:none;cursor:pointer;font-size:14px;letter-spacing:1px;margin-bottom:24px;display:inline-flex;align-items:center;gap:8px;transition:.3s}
+.detail-header .back-btn:hover{color:var(--accent2)}
+.detail-header h1{font-family:var(--font-display);font-size:clamp(28px,5vw,48px);font-weight:700;letter-spacing:4px;margin-bottom:8px}
+.detail-header .desc{color:var(--text2);font-size:16px;max-width:700px}
+.detail-header .meta{margin-top:16px;display:flex;gap:24px;flex-wrap:wrap}
+.detail-header .meta span{font-family:var(--font-mono);font-size:12px;color:var(--text3);letter-spacing:1px}
+
+/* MEDIA GRID */
+.media-section{margin-bottom:48px}
+.media-section h2{font-family:var(--font-display);font-size:18px;letter-spacing:2px;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.media-item{position:relative;border-radius:4px;overflow:hidden;border:1px solid var(--border);transition:.3s;cursor:pointer;background:var(--bg3)}
+.media-item:hover{border-color:var(--accent);box-shadow:var(--glow)}
+.media-item img,.media-item video{width:100%;display:block;aspect-ratio:16/10;object-fit:cover}
+.media-item .note-card{padding:20px;min-height:120px;font-size:14px;color:var(--text2);line-height:1.7;font-family:var(--font-body)}
+.media-item .note-card .note-title{font-family:var(--font-display);font-size:14px;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.media-item .delete-media{position:absolute;top:8px;right:8px;background:rgba(255,61,113,.9);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:none;align-items:center;justify-content:center;transition:.2s;z-index:5}
+.admin-mode .media-item .delete-media{display:flex}
+.media-item .delete-media:hover{transform:scale(1.1)}
+
+/* NOTES */
+.notes-section{margin-top:32px}
+.note-entry{background:var(--bg2);border-left:3px solid var(--accent2);padding:16px 20px;margin-bottom:12px;border-radius:0 4px 4px 0;position:relative}
+.note-entry .note-date{font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-bottom:4px}
+.note-entry p{font-size:15px;color:var(--text2);line-height:1.6}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;display:none;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(10px)}
+.lightbox.active{display:flex}
+.lightbox img,.lightbox video{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:4px}
+.lightbox .close-lb{position:fixed;top:20px;right:24px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;z-index:201}
+
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:150;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:20px}
+.modal-overlay.active{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:32px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative}
+.modal h2{font-family:var(--font-display);font-size:20px;letter-spacing:2px;margin-bottom:24px;color:var(--accent)}
+.modal label{display:block;font-family:var(--font-mono);font-size:12px;color:var(--text2);letter-spacing:1px;margin-bottom:6px;margin-top:16px}
+.modal input[type="text"],.modal textarea,.modal select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 14px;font-family:var(--font-body);font-size:15px;border-radius:3px;outline:none;transition:.3s}
+.modal input:focus,.modal textarea:focus{border-color:var(--accent)}
+.modal textarea{resize:vertical;min-height:80px}
+.modal-actions{display:flex;gap:12px;margin-top:24px;justify-content:flex-end}
+.btn{padding:10px 24px;border:none;border-radius:3px;font-family:var(--font-mono);font-size:13px;letter-spacing:1px;cursor:pointer;transition:.3s}
+.btn-primary{background:var(--accent);color:var(--bg)}
+.btn-primary:hover{box-shadow:0 0 20px rgba(0,229,255,.4)}
+.btn-secondary{background:transparent;border:1px solid var(--border);color:var(--text2)}
+.btn-secondary:hover{border-color:var(--text)}
+.btn-danger{background:var(--accent3);color:#fff}
+.btn-danger:hover{box-shadow:0 0 20px rgba(255,61,113,.4)}
+
+/* FILE DROP ZONE */
+.drop-zone{border:2px dashed var(--border);border-radius:6px;padding:40px;text-align:center;cursor:pointer;transition:.3s;margin-top:12px}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--accent);background:rgba(0,229,255,.03)}
+.drop-zone p{color:var(--text3);font-family:var(--font-mono);font-size:13px;letter-spacing:1px}
+.drop-zone .icon{font-size:36px;margin-bottom:8px;color:var(--text3)}
+.file-preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.file-preview .thumb{width:60px;height:60px;border-radius:4px;object-fit:cover;border:1px solid var(--border)}
+
+/* ADMIN TOOLBAR */
+.admin-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,15,.95);border-top:1px solid var(--accent2);padding:12px 24px;display:none;justify-content:center;gap:16px;z-index:100;backdrop-filter:blur(10px)}
+.admin-mode .admin-bar{display:flex}
+
+/* ABOUT */
+.about-content{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.about-text p{color:var(--text2);font-size:16px;line-height:1.8;margin-bottom:16px}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);padding:20px;border-radius:4px;text-align:center}
+.stat-card .num{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--accent)}
+.stat-card .label{font-family:var(--font-mono);font-size:11px;color:var(--text3);letter-spacing:2px;margin-top:4px}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:40px 0;text-align:center;position:relative;z-index:1}
+footer p{font-family:var(--font-mono);font-size:12px;color:var(--text3);letter-spacing:2px}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:80px 20px;color:var(--text3)}
+.empty-state .icon{font-size:48px;margin-bottom:16px;opacity:.3}
+.empty-state p{font-family:var(--font-mono);font-size:14px;letter-spacing:1px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .about-content{grid-template-columns:1fr}
+  .projects-grid{grid-template-columns:1fr}
+  .media-grid{grid-template-columns:1fr 1fr}
+  .nav-links a:not(.btn-admin){display:none}
+}
+@media(max-width:480px){
+  .media-grid{grid-template-columns:1fr}
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .6s ease forwards;opacity:0}
+.fade-up:nth-child(1){animation-delay:.1s}
+.fade-up:nth-child(2){animation-delay:.2s}
+.fade-up:nth-child(3){animation-delay:.3s}
+.fade-up:nth-child(4){animation-delay:.4s}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--accent);color:var(--accent);padding:12px 24px;border-radius:4px;font-family:var(--font-mono);font-size:13px;z-index:300;opacity:0;transition:.3s;pointer-events:none}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">PANTI's<span> PORTOFOLIO</span></div>
+    <div class="nav-links">
+      <a href="#" onclick="showHome();return false">PROJECTS</a>
+      <a href="#about">ABOUT</a>
+      <button class="btn-admin" onclick="toggleAdmin()">⚡ ADMIN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero-section">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <h1 class="fade-up">GAME DEV<br>PORTFOLIO</h1>
+    <p class="subtitle fade-up">C# DEVELOPER</p>
+    <p class="tagline fade-up">Crafting random apps once in a while.</p>
+  </div>
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+  </div>
+</section>
+
+<!-- PROJECTS LIST -->
+<section id="projects-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">// portfolio</div>
+      <h2 class="section-title">PROJECTS</h2>
+    </div>
+    <div class="projects-grid" id="projects-grid"></div>
+    <div class="empty-state" id="empty-projects" style="display:none">
+      <div class="icon">📁</div>
+      <p>NO PROJECTS YET</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT DETAIL VIEW -->
+<section class="project-detail" id="project-detail">
+  <div class="container">
+    <div class="detail-header">
+      <button class="back-btn" onclick="showHome()">← BACK TO PROJECTS</button>
+      <h1 id="detail-title"></h1>
+      <p class="desc" id="detail-desc"></p>
+      <div class="meta" id="detail-meta"></div>
+      <div style="margin-top:20px" id="detail-admin-actions"></div>
+    </div>
+    <div id="detail-media"></div>
+    <div id="detail-notes" class="notes-section"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">// about</div>
+      <h2 class="section-title">me.</h2>
+    </div>
+    <div class="about-content">
+      <div class="about-text">
+        <p>I'm a c# developer specialized in game developing, passionate in developing desktop apps and games on pc/android.</p>
+        <p>Each project here represents countless hours of design, coding, testing, and iteration. From gameplay mechanics to visual polish. Welcome to my journey.</p>
+      </div>
+      <div class="about-stats" id="about-stats">
+        <div class="stat-card"><div class="num" id="stat-projects">0</div><div class="label">PROJECTS</div></div>
+        <div class="stat-card"><div class="num" id="stat-media">0</div><div class="label">MEDIA FILES</div></div>
+        <div class="stat-card"><div class="num">UNITY</div><div class="label">ENGINE</div></div>
+        <div class="stat-card"><div class="num">C#</div><div class="label">LANGUAGE</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>footer.</p>
+  </div>
+</footer>
+
+<!-- ADMIN BAR -->
+<div class="admin-bar">
+  <button class="btn btn-primary" onclick="openNewProject()">+ NEW PROJECT</button>
+  <button class="btn btn-secondary" onclick="exportData()">↓ EXPORT DATA</button>
+  <button class="btn btn-secondary" onclick="importData()">↑ IMPORT DATA</button>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="close-lb">&times;</button>
+  <div id="lightbox-content"></div>
+</div>
+
+<!-- NEW PROJECT MODAL -->
+<div class="modal-overlay" id="modal-new-project">
+  <div class="modal">
+    <h2>+ NEW PROJECT</h2>
+    <label>PROJECT NAME</label>
+    <input type="text" id="proj-name" placeholder="e.g. S5 League">
+    <label>DESCRIPTION</label>
+    <textarea id="proj-desc" placeholder="Brief description of the project..."></textarea>
+    <label>ENGINE / TECH</label>
+    <input type="text" id="proj-engine" placeholder="e.g. Unity 2022, URP">
+    <label>STATUS</label>
+    <select id="proj-status">
+      <option value="In Development">In Development</option>
+      <option value="Released">Released</option>
+      <option value="Prototype">Prototype</option>
+      <option value="On Hold">On Hold</option>
+    </select>
+    <label>TAGS (comma separated)</label>
+    <input type="text" id="proj-tags" placeholder="e.g. multiplayer, fps, networking">
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-new-project')">CANCEL</button>
+      <button class="btn btn-primary" onclick="saveProject()">CREATE</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD MEDIA MODAL -->
+<div class="modal-overlay" id="modal-add-media">
+  <div class="modal">
+    <h2>+ ADD MEDIA</h2>
+    <label>TYPE</label>
+    <select id="media-type" onchange="toggleMediaFields()">
+      <option value="image">Image</option>
+      <option value="video">Video (embed URL)</option>
+      <option value="gif">GIF</option>
+      <option value="note">Note / Dev Log</option>
+    </select>
+
+    <div id="media-file-section">
+      <label>FILE</label>
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <div class="icon">📎</div>
+        <p>DROP FILE OR CLICK TO BROWSE</p>
+      </div>
+      <input type="file" id="file-input" accept="image/*,video/*,.gif" style="display:none" onchange="handleFileSelect(event)">
+      <div class="file-preview" id="file-preview"></div>
+    </div>
+
+    <div id="media-url-section" style="display:none">
+      <label>VIDEO URL (YouTube/embed)</label>
+      <input type="text" id="media-url" placeholder="https://www.youtube.com/embed/...">
+    </div>
+
+    <div id="media-note-section" style="display:none">
+      <label>NOTE TITLE</label>
+      <input type="text" id="note-title" placeholder="Dev log entry title">
+      <label>NOTE CONTENT</label>
+      <textarea id="note-content" rows="5" placeholder="Write your dev log / notes here..."></textarea>
+    </div>
+
+    <label>CAPTION (optional)</label>
+    <input type="text" id="media-caption" placeholder="Describe this media...">
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-add-media')">CANCEL</button>
+      <button class="btn btn-primary" onclick="saveMedia()">ADD</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT PROJECT MODAL -->
+<div class="modal-overlay" id="modal-edit-project">
+  <div class="modal">
+    <h2>✎ EDIT PROJECT</h2>
+    <label>PROJECT NAME</label>
+    <input type="text" id="edit-proj-name">
+    <label>DESCRIPTION</label>
+    <textarea id="edit-proj-desc"></textarea>
+    <label>ENGINE / TECH</label>
+    <input type="text" id="edit-proj-engine">
+    <label>STATUS</label>
+    <select id="edit-proj-status">
+      <option value="In Development">In Development</option>
+      <option value="Released">Released</option>
+      <option value="Prototype">Prototype</option>
+      <option value="On Hold">On Hold</option>
+    </select>
+    <label>TAGS (comma separated)</label>
+    <input type="text" id="edit-proj-tags">
+    <div class="modal-actions">
+      <button class="btn btn-danger" onclick="deleteProject()">DELETE</button>
+      <button class="btn btn-secondary" onclick="closeModal('modal-edit-project')">CANCEL</button>
+      <button class="btn btn-primary" onclick="updateProject()">SAVE</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="modal-overlay" id="modal-import">
+  <div class="modal">
+    <h2>↑ IMPORT DATA</h2>
+    <label>PASTE JSON DATA</label>
+    <textarea id="import-data" rows="10" placeholder="Paste your exported JSON here..."></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('modal-import')">CANCEL</button>
+      <button class="btn btn-primary" onclick="doImport()">IMPORT</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============ DATA LAYER ============
+const DB_KEY = 'gamedev_portfolio_data';
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(DB_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return { projects: [], settings: {} };
+}
+
+function saveData(data) {
+  localStorage.setItem(DB_KEY, JSON.stringify(data));
+}
+
+let DATA = loadData();
+let adminMode = false;
+let currentProjectId = null;
+let pendingFiles = [];
+
+// ============ RENDER ============
+function render() {
+  renderProjects();
+  updateStats();
+}
+
+function renderProjects() {
+  const grid = document.getElementById('projects-grid');
+  const empty = document.getElementById('empty-projects');
+  grid.innerHTML = '';
+
+  if (DATA.projects.length === 0) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  DATA.projects.forEach((proj, i) => {
+    const card = document.createElement('div');
+    card.className = 'project-card fade-up';
+    card.style.animationDelay = `${i * 0.1}s`;
+    card.onclick = () => openProject(proj.id);
+
+    const thumb = proj.media && proj.media.length > 0 
+      ? proj.media.find(m => m.type === 'image' || m.type === 'gif')
+      : null;
+
+    card.innerHTML = `
+      <div class="card-thumb">
+        ${thumb 
+          ? `<img src="${thumb.data || thumb.url}" alt="${proj.name}" loading="lazy">` 
+          : `<div class="placeholder">${proj.name.substring(0,2).toUpperCase()}</div>`
+        }
+      </div>
+      <div class="card-body">
+        <h3>${escHtml(proj.name)}</h3>
+        <p>${escHtml(proj.description || '')}</p>
+        <div class="card-tags">
+          <span class="tag">${escHtml(proj.status || 'WIP')}</span>
+          ${(proj.tags || []).map(t => `<span class="tag">${escHtml(t)}</span>`).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function openProject(id) {
+  const proj = DATA.projects.find(p => p.id === id);
+  if (!proj) return;
+  currentProjectId = id;
+
+  document.getElementById('projects-section').style.display = 'none';
+  document.getElementById('hero-section').style.display = 'none';
+  document.getElementById('about').style.display = 'none';
+  const detail = document.getElementById('project-detail');
+  detail.classList.add('active');
+
+  document.getElementById('detail-title').textContent = proj.name;
+  document.getElementById('detail-desc').textContent = proj.description || '';
+  document.getElementById('detail-meta').innerHTML = `
+    <span>⚙ ${escHtml(proj.engine || 'Unity')}</span>
+    <span>◉ ${escHtml(proj.status || 'WIP')}</span>
+    <span>📅 ${proj.created || 'N/A'}</span>
+  `;
+
+  // Admin actions
+  const adminActs = document.getElementById('detail-admin-actions');
+  adminActs.innerHTML = adminMode ? `
+    <button class="btn btn-primary" onclick="openAddMedia()" style="margin-right:8px">+ ADD MEDIA</button>
+    <button class="btn btn-secondary" onclick="openEditProject()">✎ EDIT PROJECT</button>
+  ` : '';
+
+  renderProjectMedia(proj);
+  window.scrollTo(0, 0);
+}
+
+function renderProjectMedia(proj) {
+  const container = document.getElementById('detail-media');
+  const notesContainer = document.getElementById('detail-notes');
+  container.innerHTML = '';
+  notesContainer.innerHTML = '';
+
+  const media = proj.media || [];
+  const images = media.filter(m => m.type === 'image' || m.type === 'gif');
+  const videos = media.filter(m => m.type === 'video');
+  const notes = media.filter(m => m.type === 'note');
+
+  if (images.length > 0) {
+    container.innerHTML += `
+      <div class="media-section">
+        <h2>📸 Screenshots & GIFs</h2>
+        <div class="media-grid">
+          ${images.map((m, i) => `
+            <div class="media-item" onclick="openLightbox('${(m.data || m.url || '').replace(/'/g,"\\'")}', 'image')">
+              <img src="${m.data || m.url}" alt="${escHtml(m.caption || '')}" loading="lazy">
+              <button class="delete-media" onclick="event.stopPropagation();deleteMedia('${proj.id}',${media.indexOf(m)})">&times;</button>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  if (videos.length > 0) {
+    container.innerHTML += `
+      <div class="media-section">
+        <h2>🎬 Videos</h2>
+        <div class="media-grid">
+          ${videos.map((m, i) => `
+            <div class="media-item">
+              <iframe src="${escHtml(m.url)}" style="width:100%;aspect-ratio:16/10;border:none" allowfullscreen></iframe>
+              <button class="delete-media" onclick="event.stopPropagation();deleteMedia('${proj.id}',${media.indexOf(m)})">&times;</button>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  if (notes.length > 0) {
+    notesContainer.innerHTML = `<h2 style="font-family:var(--font-display);font-size:18px;letter-spacing:2px;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)">📝 Dev Notes</h2>`;
+    notes.forEach((m, i) => {
+      notesContainer.innerHTML += `
+        <div class="note-entry" style="position:relative">
+          <div class="note-date">${m.date || ''}</div>
+          ${m.title ? `<strong style="color:var(--accent)">${escHtml(m.title)}</strong>` : ''}
+          <p>${escHtml(m.content || m.caption || '')}</p>
+          ${adminMode ? `<button class="delete-media" style="display:flex;position:absolute;top:8px;right:8px" onclick="deleteMedia('${proj.id}',${media.indexOf(m)})">&times;</button>` : ''}
+        </div>
+      `;
+    });
+  }
+
+  if (media.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">🎮</div>
+        <p>NO MEDIA YET</p>
+        ${adminMode ? `<p style="margin-top:8px;font-size:12px">Click "+ ADD MEDIA" to start documenting this project</p>` : ''}
+      </div>
+    `;
+  }
+}
+
+function showHome() {
+  document.getElementById('projects-section').style.display = '';
+  document.getElementById('hero-section').style.display = '';
+  document.getElementById('about').style.display = '';
+  document.getElementById('project-detail').classList.remove('active');
+  currentProjectId = null;
+  render();
+}
+
+// ============ ADMIN ============
+function toggleAdmin() {
+  adminMode = !adminMode;
+  document.body.classList.toggle('admin-mode', adminMode);
+  document.querySelector('.btn-admin').textContent = adminMode ? '⚡ EXIT ADMIN' : '⚡ ADMIN';
+  document.querySelector('.btn-admin').style.borderColor = adminMode ? 'var(--accent3)' : '';
+  document.querySelector('.btn-admin').style.color = adminMode ? 'var(--accent3)' : '';
+  
+  if (currentProjectId) openProject(currentProjectId);
+  toast(adminMode ? 'ADMIN MODE ON' : 'ADMIN MODE OFF');
+}
+
+// ============ PROJECTS CRUD ============
+function openNewProject() {
+  document.getElementById('proj-name').value = '';
+  document.getElementById('proj-desc').value = '';
+  document.getElementById('proj-engine').value = 'Unity';
+  document.getElementById('proj-status').value = 'In Development';
+  document.getElementById('proj-tags').value = '';
+  openModal('modal-new-project');
+}
+
+function saveProject() {
+  const name = document.getElementById('proj-name').value.trim();
+  if (!name) { toast('Name required!'); return; }
+
+  const proj = {
+    id: 'proj_' + Date.now(),
+    name,
+    description: document.getElementById('proj-desc').value.trim(),
+    engine: document.getElementById('proj-engine').value.trim(),
+    status: document.getElementById('proj-status').value,
+    tags: document.getElementById('proj-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+    created: new Date().toLocaleDateString(),
+    media: []
+  };
+
+  DATA.projects.push(proj);
+  saveData(DATA);
+  closeModal('modal-new-project');
+  render();
+  toast('PROJECT CREATED');
+}
+
+function openEditProject() {
+  const proj = DATA.projects.find(p => p.id === currentProjectId);
+  if (!proj) return;
+  document.getElementById('edit-proj-name').value = proj.name;
+  document.getElementById('edit-proj-desc').value = proj.description || '';
+  document.getElementById('edit-proj-engine').value = proj.engine || '';
+  document.getElementById('edit-proj-status').value = proj.status || 'In Development';
+  document.getElementById('edit-proj-tags').value = (proj.tags || []).join(', ');
+  openModal('modal-edit-project');
+}
+
+function updateProject() {
+  const proj = DATA.projects.find(p => p.id === currentProjectId);
+  if (!proj) return;
+  proj.name = document.getElementById('edit-proj-name').value.trim();
+  proj.description = document.getElementById('edit-proj-desc').value.trim();
+  proj.engine = document.getElementById('edit-proj-engine').value.trim();
+  proj.status = document.getElementById('edit-proj-status').value;
+  proj.tags = document.getElementById('edit-proj-tags').value.split(',').map(t => t.trim()).filter(Boolean);
+  saveData(DATA);
+  closeModal('modal-edit-project');
+  openProject(currentProjectId);
+  toast('PROJECT UPDATED');
+}
+
+function deleteProject() {
+  if (!confirm('Delete this project and all its media? This cannot be undone.')) return;
+  DATA.projects = DATA.projects.filter(p => p.id !== currentProjectId);
+  saveData(DATA);
+  closeModal('modal-edit-project');
+  showHome();
+  toast('PROJECT DELETED');
+}
+
+// ============ MEDIA CRUD ============
+function openAddMedia() {
+  document.getElementById('media-type').value = 'image';
+  document.getElementById('media-caption').value = '';
+  document.getElementById('media-url').value = '';
+  document.getElementById('note-title').value = '';
+  document.getElementById('note-content').value = '';
+  document.getElementById('file-preview').innerHTML = '';
+  pendingFiles = [];
+  toggleMediaFields();
+  openModal('modal-add-media');
+}
+
+function toggleMediaFields() {
+  const type = document.getElementById('media-type').value;
+  document.getElementById('media-file-section').style.display = (type === 'image' || type === 'gif') ? '' : 'none';
+  document.getElementById('media-url-section').style.display = type === 'video' ? '' : 'none';
+  document.getElementById('media-note-section').style.display = type === 'note' ? '' : 'none';
+}
+
+function handleFileSelect(e) {
+  const files = Array.from(e.target.files);
+  processFiles(files);
+}
+
+function processFiles(files) {
+  const preview = document.getElementById('file-preview');
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      pendingFiles.push({ name: file.name, data: e.target.result, type: file.type });
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.className = 'thumb';
+      preview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// Drag & drop
+const dropZone = document.getElementById('drop-zone');
+if (dropZone) {
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    processFiles(Array.from(e.dataTransfer.files));
+  });
+}
+
+function saveMedia() {
+  const proj = DATA.projects.find(p => p.id === currentProjectId);
+  if (!proj) return;
+  const type = document.getElementById('media-type').value;
+  const caption = document.getElementById('media-caption').value.trim();
+
+  if (type === 'image' || type === 'gif') {
+    if (pendingFiles.length === 0) { toast('Select a file first!'); return; }
+    pendingFiles.forEach(f => {
+      proj.media.push({
+        type,
+        data: f.data,
+        caption,
+        date: new Date().toLocaleDateString()
+      });
+    });
+  } else if (type === 'video') {
+    const url = document.getElementById('media-url').value.trim();
+    if (!url) { toast('Enter a video URL!'); return; }
+    proj.media.push({ type: 'video', url, caption, date: new Date().toLocaleDateString() });
+  } else if (type === 'note') {
+    const title = document.getElementById('note-title').value.trim();
+    const content = document.getElementById('note-content').value.trim();
+    if (!content) { toast('Write something!'); return; }
+    proj.media.push({ type: 'note', title, content, caption, date: new Date().toLocaleDateString() });
+  }
+
+  saveData(DATA);
+  closeModal('modal-add-media');
+  openProject(currentProjectId);
+  toast('MEDIA ADDED');
+}
+
+function deleteMedia(projId, mediaIndex) {
+  if (!confirm('Delete this item?')) return;
+  const proj = DATA.projects.find(p => p.id === projId);
+  if (!proj) return;
+  proj.media.splice(mediaIndex, 1);
+  saveData(DATA);
+  openProject(currentProjectId);
+  toast('MEDIA DELETED');
+}
+
+// ============ EXPORT / IMPORT ============
+function exportData() {
+  const json = JSON.stringify(DATA, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'portfolio_data.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('DATA EXPORTED');
+}
+
+function importData() {
+  document.getElementById('import-data').value = '';
+  openModal('modal-import');
+}
+
+function doImport() {
+  try {
+    const raw = document.getElementById('import-data').value.trim();
+    const imported = JSON.parse(raw);
+    if (imported.projects) {
+      DATA = imported;
+      saveData(DATA);
+      closeModal('modal-import');
+      showHome();
+      toast('DATA IMPORTED');
+    } else {
+      toast('Invalid data format!');
+    }
+  } catch(e) {
+    toast('JSON parse error!');
+  }
+}
+
+// ============ LIGHTBOX ============
+function openLightbox(src, type) {
+  const lb = document.getElementById('lightbox');
+  const content = document.getElementById('lightbox-content');
+  if (type === 'image') {
+    content.innerHTML = `<img src="${src}">`;
+  }
+  lb.classList.add('active');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+// ============ UTILS ============
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+function escHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function updateStats() {
+  document.getElementById('stat-projects').textContent = DATA.projects.length;
+  let total = 0;
+  DATA.projects.forEach(p => total += (p.media || []).length);
+  document.getElementById('stat-media').textContent = total;
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('active');
+  });
+});
+
+// ESC key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+    closeLightbox();
+  }
+});
+
+// Init
+document.getElementById('year').textContent = new Date().getFullYear();
+render();
+</script>
+
+</body>
+</html>
