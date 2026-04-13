@@ -15,6 +15,61 @@
           "file": "in-match_scene.png",
           "caption": "in-game scene window screenshot. 12/04/2026"
         },
+		{
+          "type": "image",
+          "file": "channel_select.png",
+          "caption": "latest channel select design screenshot. 13/04/2026"
+        },
+		{
+          "type": "image",
+          "file": "character_list.png",
+          "caption": "latest characters lists design screenshot. every character has his own info. inventory or friend list it's not shared. it's like making a new account. 13/04/2026"
+        },
+		{
+          "type": "image",
+          "file": "create_room.png",
+          "caption": "latest reate room design screenshot. only deathmatch gamemode currently. 13/04/2026"
+        },
+		{
+          "type": "image",
+          "file": "friend_list.png",
+          "caption": "latest friend list design screenshot. you can whisper (even if he is offline), invite to room or remove him. 13/04/2026"
+        },
+		{
+          "type": "image",
+          "file": "friend_list_whisper.png",
+          "caption": "a screenshot of how whisper looks. 13/04/2026"
+        },
+		{
+          "type": "image",
+          "file": "inventory.png",
+          "caption": "latest inventory design screenshot. can only equip items. 13/04/2026"
+        },
+		{
+          "type": "image",
+          "file": "profile_stats.png",
+          "caption": "latest profile design screenshot. you can see your account & character info. 13/04/2026"
+        },
+		{
+          "type": "image",
+          "file": "room_list.png",
+          "caption": "latest room list design screenshot. 13/04/2026"
+        },
+		{
+          "type": "image",
+          "file": "room_lobby.png",
+          "caption": "this is how it looks when you are in a room lobby. 13/04/2026"
+        },
+		{
+          "type": "image",
+          "file": "settings.png",
+          "caption": "latest settings design screenshot. the settings are always saved. 13/04/2026"
+        },
+		{
+          "type": "image",
+          "file": "shop.png",
+          "caption": "this is the shop. you can buy with PEN or AP or both. 13/04/2026"
+        },
         {
           "type": "gif",
           "file": "animations.gif",
@@ -46,6 +101,11 @@
           "title": "Hello, world!",
           "content": "this is a project that i work on just for fun. it's not intended to be public after it's done, but i want to share the progress with everyone. this is a remake of S4 League in Unity Engine, called S5 League",
           "date": "12/04/2026"
+        },
+		{
+          "title": "New in-game screenshots.",
+          "content": "enjoy new screenshots and videos from the current state of the game.",
+          "date": "13/04/2026"
         }
       ]
     }
