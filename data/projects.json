@@ -124,8 +124,19 @@
       "tags": ["windows", "utility", "cleaner", "wpf", "c#"],
       "created": "2026",
       "folder": "CleanerBuddy",
-      "download": "YOUR_DOWNLOAD_URL_HERE",
-      "media": [],
+      "download": "https://github.com/AlexMihai23/cleanerbuddy/releases/tag/release",
+      "media": [
+		{
+			"type": "image",
+			"file": "screenshot.png",
+			"caption": "preview app."
+		},
+		{
+			"type": "gif",
+			"file": "preview.gif",
+			"caption": "all pages."
+		}
+	  ],
       "notes": [
         {
           "title": "Released!",
