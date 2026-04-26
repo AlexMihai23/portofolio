@@ -117,7 +117,7 @@
     },
     {
       "id": "cleanerbuddy",
-      "name": "CleanerBuddy",
+      "name": "Cleaner Buddy",
       "description": "Windows PC cleaner with file scanner, registry cleaner, startup manager, duplicate finder, privacy cleaner, services manager and more.",
       "engine": "C# / WPF (.NET 10)",
       "status": "Released",
