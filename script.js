@@ -71,9 +71,16 @@ function renderProjects() {
       <div class="card-body">
         <h3>${esc(proj.name)}</h3>
         <p>${esc(proj.description || '')}</p>
-        <div class="card-tags">
-          <span class="tag status">${esc(proj.status || 'WIP')}</span>
-          ${(proj.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join('')}
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="tag status">${esc(proj.status || 'WIP')}</span>
+            ${(proj.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join('')}
+          </div>
+          ${proj.download
+            ? `<a class="btn-download" href="${escAttr(proj.download)}" target="_blank" rel="noopener"
+                 onclick="event.stopPropagation()">⬇ Download</a>`
+            : `<span class="btn-download disabled">⬇ Soon</span>`
+          }
         </div>
       </div>
     `;
@@ -102,6 +109,14 @@ function openProject(id) {
     <span>◉ ${esc(proj.status || 'WIP')}</span>
     <span>📅 ${esc(proj.created || '')}</span>
   `;
+
+  const dlBtn = document.getElementById('detail-download');
+  if (proj.download) {
+    dlBtn.href = proj.download;
+    dlBtn.style.display = '';
+  } else {
+    dlBtn.style.display = 'none';
+  }
 
   renderProjectMedia(proj);
   window.scrollTo(0, 0);

@@ -9,6 +9,7 @@
       "tags": ["multiplayer", "competitive", "shooter", "action", "anime"],
       "created": "2026",
       "folder": "S5 League",
+      "download": null,
       "media": [
         {
           "type": "image",
@@ -111,6 +112,25 @@
           "title": "devnote",
           "content": "bug fixes for client & server / you can see who killed who with what weapon / death animation + invincibility / 7 seconds delay until respawn.",
           "date": "21/04/2026"
+        }
+      ]
+    },
+    {
+      "id": "cleanerbuddy",
+      "name": "CleanerBuddy",
+      "description": "Windows PC cleaner with file scanner, registry cleaner, startup manager, duplicate finder, privacy cleaner, services manager and more.",
+      "engine": "C# / WPF (.NET 10)",
+      "status": "Released",
+      "tags": ["windows", "utility", "cleaner", "wpf", "c#"],
+      "created": "2026",
+      "folder": "CleanerBuddy",
+      "download": "YOUR_DOWNLOAD_URL_HERE",
+      "media": [],
+      "notes": [
+        {
+          "title": "Released!",
+          "content": "CleanerBuddy is a Windows desktop app built with WPF and .NET 10. It features a file cleaner (temp, cache, browser), registry scanner, startup manager, duplicate finder, disk analyzer, privacy cleaner, and a full services manager.",
+          "date": "26/04/2026"
         }
       ]
     }
