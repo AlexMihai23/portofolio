@@ -71,6 +71,36 @@
           "file": "shop.png",
           "caption": "this is the shop. you can buy with PEN or AP or both. 13/04/2026"
         },
+		{
+          "type": "image",
+          "file": "ingame_1.png",
+          "caption": "de_dust2 map in both dm and td gamemodes. 02/05/2026"
+        },
+		{
+          "type": "image",
+          "file": "ingame_2.png",
+          "caption": "neden-1 map in dm. 02/05/2026"
+        },
+		{
+          "type": "image",
+          "file": "ingame_3.png",
+          "caption": "neo arena map in dm. 02/05/2026"
+        },
+		{
+          "type": "image",
+          "file": "ingame_4.png",
+          "caption": "glitched station-2 map in td. 02/05/2026"
+        },
+		{
+          "type": "image",
+          "file": "ingame_4.png",
+          "caption": "wonderland map in td. 02/05/2026"
+        },
+		{
+          "type": "image",
+          "file": "voice_chat.png",
+          "caption": "close-up proximity voice chat screenshot. 02/05/2026"
+        },
         {
           "type": "gif",
           "file": "animations.gif",
@@ -95,6 +125,16 @@
           "type": "video",
           "file": "new ui + gameplay.mp4",
           "caption": "remade almost entire UI + DAMAGE TO PLAYERS! 12/04/2026"
+        },
+		{
+          "type": "video",
+          "file": "smooth_animation_fix.mp4",
+          "caption": "fixed animations (not done). 02/05/2026"
+        },
+		{
+          "type": "video",
+          "file": "td_gamemode_preview_alpha.mp4",
+          "caption": "first version of touchdown! 02/05/2026"
         }
       ],
       "notes": [
@@ -109,7 +149,7 @@
           "date": "13/04/2026"
         },
 		{
-          "title": "devnote",
+          "title": "Developer Note",
           "content": "bug fixes for client & server / you can see who killed who with what weapon / death animation + invincibility / 7 seconds delay until respawn.",
           "date": "21/04/2026"
         },
@@ -117,6 +157,11 @@
           "title": "New content",
           "content": "touchdown gamemode added. now there is deathmatch and touchdown to play & bugs fixed. also proximity voice chat added. screenshots & videos soon",
           "date": "30/04/2026"
+        },
+		{
+          "title": "New Maps",
+          "content": "new maps & many bugs fixed. added new screenshots & videos.",
+          "date": "02/05/2026"
         }
       ]
     },
