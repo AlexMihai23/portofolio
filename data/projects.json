@@ -101,6 +101,21 @@
           "file": "voice_chat.png",
           "caption": "close-up proximity voice chat screenshot. 02/05/2026"
         },
+		{
+          "type": "image",
+          "file": "dagger_idle.png",
+          "caption": "new item: dagger. 03/05/2026"
+        },
+		{
+          "type": "image",
+          "file": "dagger_hit.png",
+          "caption": "hit it. 03/05/2026"
+        },
+		{
+          "type": "image",
+          "file": "dagger_walking.png",
+          "caption": "just walking around. 03/05/2026"
+        },
         {
           "type": "gif",
           "file": "animations.gif",
@@ -162,6 +177,11 @@
           "title": "New Maps",
           "content": "new maps & many bugs fixed. added new screenshots & videos.",
           "date": "02/05/2026"
+        },
+		{
+          "title": "New item",
+          "content": "added dagger, wall jump (still buggy), fixed some more bugs",
+          "date": "03/05/2026"
         }
       ]
     },
