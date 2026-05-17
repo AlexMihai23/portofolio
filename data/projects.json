@@ -182,6 +182,11 @@
           "title": "New item",
           "content": "added dagger, wall jump (still buggy), fixed some more bugs",
           "date": "03/05/2026"
+        },
+		{
+          "title": "Developer Note",
+          "content": "i am currently working on polishing the game. it needs ALOT of polish. everyday it feels more like S4 League.",
+          "date": "17/05/2026"
         }
       ]
     },
